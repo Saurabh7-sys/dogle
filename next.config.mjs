@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  serverExternalPackages: ["firebase-admin"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
