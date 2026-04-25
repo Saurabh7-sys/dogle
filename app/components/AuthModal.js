@@ -81,7 +81,6 @@ export default function AuthModal() {
           <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
           Continue with Google
         </button>
-
         <div className="relative flex items-center py-5">
           <div className="flex-grow border-t border-gray-300"></div>
           <span className="flex-shrink-0 mx-4 text-gray-400 font-medium text-sm">or</span>
