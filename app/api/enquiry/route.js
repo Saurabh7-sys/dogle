@@ -4,11 +4,11 @@ import { adminDb } from "@/lib/firebaseAdmin";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, phone, dogName, breed, message } = body;
+    const { name, email, phone, dogName, subject, message } = body;
 
-    if (!name || !phone || !message) {
+    if (!name || !email || !phone || !message) {
       return NextResponse.json(
-        { success: false, error: "Missing required fields (name, phone, message)" },
+        { success: false, error: "Missing required fields (name, email, phone, message)" },
         { status: 400 }
       );
     }
@@ -16,9 +16,10 @@ export async function POST(req) {
     const now = new Date().toISOString();
     const docRef = await adminDb.collection("enquiries").add({
       name,
+      email,
       phone,
       dogName: dogName || "",
-      breed: breed || "",
+      subject: subject || "",
       message,
       createdAt: now,
       updatedAt: now,

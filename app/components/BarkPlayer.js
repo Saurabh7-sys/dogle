@@ -6,40 +6,45 @@ export default function BarkPlayer() {
   const hasBarked = useRef(false);
 
   useEffect(() => {
-    // Only bark once per session so we don't annoy them on every page navigation
-    if (sessionStorage.getItem("hasBarked")) return;
+    // Only bark once ever (localStorage) so we don't annoy returning users
+    if (localStorage.getItem("hasBarked")) return;
 
     const playBark = () => {
-      if (!hasBarked.current) {
-        console.log("🐶 Attempting to play bark sound...");
-        // Using local sound file to prevent AdBlock/CORS issues
-        const audio = new Audio("/bark.ogg");
-        audio.volume = 0.4; // 40% volume so it's a pleasant surprise, not a jump scare
+      if (!hasBarked.current && !localStorage.getItem("hasBarked")) {
+        hasBarked.current = true;
+        localStorage.setItem("hasBarked", "true");
+        
+        console.log("🐶 Attempting to play cute puppy bark...");
+        const audio = new Audio("/bark.mp3");
+        audio.volume = 0.5;
         
         audio.play().then(() => {
-          hasBarked.current = true;
-          sessionStorage.setItem("hasBarked", "true");
+          
+          // Stop the bark after 5 seconds
+          setTimeout(() => {
+            audio.pause();
+            audio.currentTime = 0;
+          }, 5000);
+          
+          // Only remove listeners if playback actually succeeded
+          window.removeEventListener("click", playBark);
+          window.removeEventListener("touchstart", playBark);
+          window.removeEventListener("keydown", playBark);
         }).catch((err) => {
-          // If the browser still blocks it, we just ignore the error
-          console.log("Bark suppressed by browser:", err);
+          // If browser blocked it (e.g., scroll wasn't a valid gesture), keep listening!
+          console.log("Bark suppressed by browser, waiting for better interaction:", err);
         });
       }
-      
-      // Remove listeners after first interaction
-      window.removeEventListener("click", playBark);
-      window.removeEventListener("scroll", playBark);
-      window.removeEventListener("keydown", playBark);
     };
 
-    // Browsers block audio until the user interacts with the page (click, scroll, keypress)
-    // We listen for the very first interaction to trigger the bark.
-    window.addEventListener("click", playBark, { once: true });
-    window.addEventListener("scroll", playBark, { once: true });
-    window.addEventListener("keydown", playBark, { once: true });
+    // Listeners without 'once: true' so they can retry if blocked
+    window.addEventListener("click", playBark);
+    window.addEventListener("touchstart", playBark);
+    window.addEventListener("keydown", playBark);
 
     return () => {
       window.removeEventListener("click", playBark);
-      window.removeEventListener("scroll", playBark);
+      window.removeEventListener("touchstart", playBark);
       window.removeEventListener("keydown", playBark);
     };
   }, []);

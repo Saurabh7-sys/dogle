@@ -5,9 +5,11 @@ import { usePathname, useRouter } from "next/navigation";
 
 const adminLinks = [
   { label: "Dashboard", href: "/admin" },
-  { label: "Site Settings", href: "/admin/settings" },
+  { label: "Users", href: "/admin/users" },
+  { label: "Bookings", href: "/admin/bookings" },
+  { label: "Enquiries", href: "/admin/enquiries" },
   { label: "Pages", href: "/admin/pages" },
-  { label: "Media", href: "/admin/media" },
+  { label: "Site Settings", href: "/admin/settings" },
 ];
 
 export default function AdminNavbar() {

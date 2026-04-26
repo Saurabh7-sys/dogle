@@ -9,11 +9,25 @@ export async function GET(req) {
       return NextResponse.json({ success: false, error: authResult.error }, { status: authResult.status });
     }
 
-    const { uid } = authResult.user;
+    const { uid, email, name, picture } = authResult.user;
     const doc = await adminDb.collection("users").doc(uid).get();
 
     if (!doc.exists) {
-      return NextResponse.json({ success: false, error: "User profile not found" }, { status: 404 });
+      // Return a skeleton profile if first time login
+      return NextResponse.json({ 
+        success: true, 
+        data: {
+          uid,
+          name: name || "",
+          email: email || "",
+          photoURL: picture || "",
+          phone: "",
+          dogName: "",
+          dogAge: "",
+          dogBreed: "",
+          vaccinated: false,
+        } 
+      });
     }
 
     return NextResponse.json({ success: true, data: doc.data() });
@@ -45,7 +59,8 @@ export async function PUT(req) {
     if (dogBreed !== undefined) updateData.dogBreed = dogBreed;
     if (vaccinated !== undefined) updateData.vaccinated = vaccinated;
 
-    await adminDb.collection("users").doc(uid).update(updateData);
+    // Use set with merge: true so it creates the document if it doesn't exist
+    await adminDb.collection("users").doc(uid).set(updateData, { merge: true });
     
     const doc = await adminDb.collection("users").doc(uid).get();
 

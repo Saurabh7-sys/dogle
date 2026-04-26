@@ -23,6 +23,7 @@ export default function ContactPage() {
     human: "",
     dog: "",
     email: "",
+    phone: "",
     subject: "Booking an Inquiry",
     message: "",
   });
@@ -32,9 +33,29 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setSent(true);
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.human,
+          email: form.email,
+          phone: form.phone,
+          dogName: form.dog,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+      if (res.ok) {
+        setSent(true);
+      } else {
+        alert("Oops! Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    }
   }
 
   const inputClass =
@@ -139,6 +160,22 @@ export default function ContactPage() {
                     type="email"
                     placeholder="john@example.com"
                     value={form.email}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div className="flex flex-col gap-2">
+                  <label className="font-bold text-sm text-[#1b1c1c]">
+                    Phone Number
+                  </label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    value={form.phone}
                     onChange={handleChange}
                     required
                     className={inputClass}

@@ -28,10 +28,14 @@ export const useAuthStore = create((set, get) => ({
       });
       if (res.ok) {
         const data = await res.json();
-        set({ profile: data.data });
-        if (!data.data.dogName && typeof window !== 'undefined' && window.location.pathname !== '/onboarding') {
+        set({ profile: data.data, loading: false });
+        
+        // Redirect if dog info is missing
+        if (!data.data.dogName && typeof window !== 'undefined' && !window.location.pathname.startsWith('/onboarding') && !window.location.pathname.startsWith('/admin')) {
           window.location.href = '/onboarding';
         }
+      } else {
+        set({ loading: false });
       }
     } catch (error) {
       console.error("Error fetching profile", error);
@@ -41,7 +45,7 @@ export const useAuthStore = create((set, get) => ({
   initializeAuth: () => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        set({ user: firebaseUser, loading: false });
+        set({ user: firebaseUser }); // Keep loading: true until profile is fetched
         const token = await firebaseUser.getIdToken();
         await get().fetchProfile(token);
       } else {
