@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "../../store/useAuthStore";
 import { auth } from "@/lib/firebaseClient";
+import Skeleton from "react-loading-skeleton";
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -51,7 +52,28 @@ export default function OnboardingPage() {
     }
   };
 
-  if (loading) return null;
+  if (loading) {
+    return (
+      <div className="min-h-screen pt-24 pb-12 px-4 bg-yellow-50 flex items-center justify-center">
+        <div className="bg-white rounded-3xl p-8 max-w-lg w-full border-4 border-zinc-900 shadow-[8px_8px_0_0_rgba(27,28,28,1)]">
+          <div className="text-center mb-8 flex flex-col items-center">
+            <Skeleton circle width={50} height={50} className="mb-2" />
+            <Skeleton width={250} height={36} />
+            <Skeleton width={300} height={20} className="mt-2" />
+          </div>
+          <div className="space-y-5">
+            <div><Skeleton height={20} width={100} className="mb-1" /><Skeleton height={50} borderRadius={12} /></div>
+            <div className="grid grid-cols-2 gap-4">
+              <div><Skeleton height={20} width={80} className="mb-1" /><Skeleton height={50} borderRadius={12} /></div>
+              <div><Skeleton height={20} width={80} className="mb-1" /><Skeleton height={50} borderRadius={12} /></div>
+            </div>
+            <Skeleton height={60} borderRadius={12} />
+            <Skeleton height={60} borderRadius={12} className="mt-4" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 bg-yellow-50 flex items-center justify-center">

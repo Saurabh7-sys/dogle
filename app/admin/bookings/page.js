@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import useUiStore from "@/app/store/useUiStore";
+import Skeleton from "react-loading-skeleton";
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
@@ -48,9 +49,15 @@ export default function AdminBookings() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20">
-        <div className="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-      </div>
+      <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <Skeleton width={300} height={32} />
+          <Skeleton width={400} height={20} className="mt-1" />
+        </div>
+        <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden p-4">
+          <Skeleton count={5} height={65} className="mb-2" />
+        </div>
+      </main>
     );
   }
 
