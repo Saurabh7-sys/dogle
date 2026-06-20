@@ -4,9 +4,6 @@ export const metadata = {
   title: "BM Pet care - Premium Pet Care Services",
   description:
     "Luxury dog boarding, daycare, grooming and pick & drop services. Where every day is a tail-wagging adventure for your best friend.",
-  icons: {
-    icon: "/LogoBm.png",
-  },
 };
 
 export default function RootLayout({ children }) {
