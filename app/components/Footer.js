@@ -4,9 +4,7 @@ import Link from "next/link";
 import { useSiteStore } from "../store/useSiteStore";
 import { useHydration } from "../hooks/useHydration";
 import BrandLogo from "./BrandLogo";
-import { BRAND_NAME, CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from "@/lib/siteConfig";
-
-const TEL_URL = `tel:+91${CONTACT_PHONE}`;
+import { BRAND_NAME, CONTACT_PHONES, MAPS_URL, SITE_ADDRESS } from "@/lib/siteConfig";
 
 const footerLinks = [
   { label: "Safety Policy", href: "#" },
@@ -50,18 +48,31 @@ export default function Footer() {
           </p>
           <div className="flex flex-col gap-2 mt-2">
             <h4 className="font-bold text-white text-lg">Find the Pack</h4>
-            <div className="flex items-start gap-2 justify-center md:justify-start">
-              <span className="material-symbols-outlined text-green-200 mt-1" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
-              <p className="text-green-100/90 text-left">
-                123 Wagging Tail Blvd.<br />
-                Barksville, CA 90210
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-2 justify-center md:justify-start group"
+            >
+              <span className="material-symbols-outlined text-green-200 mt-1 shrink-0 group-hover:text-white transition-colors" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
+              <p className="text-green-100/90 text-left group-hover:text-white group-hover:underline transition-colors">
+                {SITE_ADDRESS.line1}<br />
+                {SITE_ADDRESS.line2}
               </p>
-            </div>
-            <div className="flex items-center gap-2 mt-2 justify-center md:justify-start">
-              <span className="material-symbols-outlined text-green-200" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
-              <a href={TEL_URL} className="text-green-100/90 hover:text-white transition-colors">
-                {CONTACT_PHONE_DISPLAY}
-              </a>
+            </a>
+            <div className="flex items-start gap-2 mt-2 justify-center md:justify-start">
+              <span className="material-symbols-outlined text-green-200 mt-1 shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
+              <div className="flex flex-col gap-1 text-left">
+                {CONTACT_PHONES.map(({ number, display }) => (
+                  <a
+                    key={number}
+                    href={`tel:+91${number}`}
+                    className="text-green-100/90 hover:text-white transition-colors"
+                  >
+                    {display}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

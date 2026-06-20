@@ -16,7 +16,7 @@ const steps = [
     imgSrc:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDieMDkoKJt0yf5qCMhTrm_JrL4fst6SZC1KED4NL63jjSUTy2bQYZ6STa273yzav3b_UpYdh8rPZu2AyBzqw38Am-LCYzDEsgH9oYXKN3hufCjYC9VJ5Ar99TVypQ_nRXyJctIz3vVbUd_xGNopL2_yCbpaxMWto605fZqLM6rNVkpK9j1DFg_AZpEjbwa1GAfCR1mVApRiKW-fmMjqYQxB8o7VX66bjuGHSloZzUalnCKLQbin6Qad5WKJoQBwqhQmlcwV2C3wg",
     imgAlt: "Dog wearing glasses looking at laptop",
-    imgPos: "-top-6 -left-4 sm:-top-10 sm:-left-10",
+    imgPos: "md:-top-10 md:-left-10",
     title: "The Human Clicks",
     titleColor: "text-[#1b1c1c]",
     bodyColor: "text-[#4d4633]",
@@ -30,7 +30,7 @@ const steps = [
     imgSrc:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuB_du9DMEDIokzuGgSB92o4rQj3iSIepQfQ1WfWs2qvqG35nYb-Yybyfw35GBrR7mfRTZBk8JEoyAR1Odp_JlnSgZSFnj-s1j9M9i7RPorpSBDkFlGua4NozFqlWRnaDo9EnDl-amYH8sbU3RwZvCiJwna2Ot6ZqkLadW63nvRHrXV42aXtEoTBsfqY4G_8GXJRu_FVRDOsarLhj0DvD5GaAhI_GkTghrcfJcgJWUOt8ihnH9XSsVh6BQDjPdR35YNt6FW26nHpMA",
     imgAlt: "Golden retriever sniffing curiously",
-    imgPos: "-top-6 -right-4 sm:-top-10 sm:-right-10",
+    imgPos: "md:-top-10 md:-right-10",
     title: "The Grand Sniff-Off",
     titleColor: "text-[#006697]",
     bodyColor: "text-[#006697]",
@@ -58,7 +58,7 @@ const steps = [
     imgSrc:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCKs8T_ECgon-F0T0qeVNI5VXfKNuC3HbXERVeSmdymslq5x8W3IInRBQjJb3IRaoMX7OYpbUlSW7As5yZx1Irbel9c2Gqd61Ca3YMHL925zIlf5lqrkY__Wl_bCMtuCWu9WXgnGkhKJhewpemggMIfGZ2SU9QHIQPSpN_WobIctVBp9G1StTRQAJZ82--B4t1682BGndsJApryf5vcOvzHpXQYUMqvh6Uz37m7CGJRuvodRkPgVb7Tpt92NqCzMfNcB2utI3U3Tg",
     imgAlt: "Pug catching a treat mid-air",
-    imgPos: "-bottom-6 -right-4 sm:-bottom-8 sm:-right-8",
+    imgPos: "md:-bottom-8 md:-right-8",
     title: "The Magic Treat Drop",
     titleColor: "text-[#93000a]",
     bodyColor: "text-[#93000a]",
@@ -72,7 +72,7 @@ const steps = [
     imgSrc:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCjq_H5yS9JItBGuY4eSAPioctGTUOD13SNvcn9wq7nrkzqcuR5bAzv2Hxpg2n1yGFqf4tod99RPMHl0M2hwiYdlP_4JaU4n08KpXj3-VW_Mp8GmRZpOO6pcBwVSATiusBo3qjq27d_SCx0WytEI-5xSZkIko7ULDpgvoObWpb16y70q7KX1tRgdvPueg-nlhARUeIylFTXp8h4LYXv448uc4BWzT_Os_i0oD_DbpIp9mQxNu9LvinfFIuDYkTB7pAUusC48B6T6g",
     imgAlt: "French bulldog sleeping on a fluffy blanket",
-    imgPos: "-bottom-6 -left-4 sm:-bottom-10 sm:-left-10 w-20 h-20 sm:w-32 sm:h-32",
+    imgPos: "md:-bottom-10 md:-left-10 md:w-32 md:h-32",
     title: "The Big Snooze",
     titleColor: "text-[#1b1c1c]",
     bodyColor: "text-[#4d4633]",
@@ -83,7 +83,7 @@ const steps = [
 
 export default function HowItWorksPage() {
   return (
-    <main className="pt-32 pb-32 overflow-x-hidden max-w-[1200px] mx-auto px-6">
+    <main className="pt-32 pb-32 max-w-[1200px] mx-auto px-4 sm:px-6">
       {/* Header */}
       <FadeIn>
         <header className="text-center mt-4 sm:mt-8 mb-16 sm:mb-24 relative px-4">
@@ -122,7 +122,7 @@ export default function HowItWorksPage() {
       </FadeIn>
 
       {/* Timeline */}
-      <div className="relative w-full max-w-4xl mx-auto px-4 md:px-0">
+      <div className="relative w-full max-w-4xl mx-auto px-2 sm:px-4 md:px-8">
         {/* Dashed center line */}
         <div className="absolute left-8 md:left-1/2 top-0 bottom-0 transform -translate-x-1/2 dashed-path z-0" />
 
@@ -135,7 +135,7 @@ export default function HowItWorksPage() {
               }`}
             >
               <div
-                className={`w-full md:w-1/2 flex relative pl-16 pr-4 sm:pr-8 md:px-0 ${
+                className={`w-full md:w-1/2 flex relative pl-16 pr-2 sm:pr-4 md:px-0 overflow-visible ${
                   step.side === "right"
                     ? "md:pl-12 justify-start"
                     : "md:pr-12 justify-start md:justify-end"
@@ -154,21 +154,33 @@ export default function HowItWorksPage() {
                 <div
                   className={`${step.cardBg} w-full rounded-[2rem] border-[4px] border-[#1b1c1c] shadow-[0_8px_0_0_#1b1c1c] p-6 sm:p-8 max-w-md relative overflow-visible hover:-translate-y-2 hover:shadow-[0_12px_0_0_#1b1c1c] transition-all duration-300`}
                 >
-                  {/* Decorative image avatar */}
                   {step.imgSrc && (
-                    <div
-                      className={`absolute ${step.imgPos} ${
-                        step.imgPos.includes("w-") ? "" : "w-16 h-16 sm:w-24 sm:h-24"
-                      } rounded-full border-4 border-[#1b1c1c] overflow-hidden bg-[#f0eded] shadow-[0_4px_0_0_#1b1c1c] z-30`}
-                    >
-                      <Image
-                        src={step.imgSrc}
-                        alt={step.imgAlt}
-                        width={96}
-                        height={96}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                    <>
+                      <div className="flex justify-center mb-4 md:hidden">
+                        <div className="w-20 h-20 rounded-full border-4 border-[#1b1c1c] overflow-hidden bg-[#f0eded] shadow-[0_4px_0_0_#1b1c1c]">
+                          <Image
+                            src={step.imgSrc}
+                            alt={step.imgAlt}
+                            width={80}
+                            height={80}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className={`hidden md:block absolute ${step.imgPos} ${
+                          step.imgPos.includes("w-") ? "" : "w-24 h-24"
+                        } rounded-full border-4 border-[#1b1c1c] overflow-hidden bg-[#f0eded] shadow-[0_4px_0_0_#1b1c1c] z-30`}
+                      >
+                        <Image
+                          src={step.imgSrc}
+                          alt={step.imgAlt}
+                          width={96}
+                          height={96}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </>
                   )}
 
                   {/* Decorative bouncing icons for step 3 */}
@@ -191,15 +203,13 @@ export default function HowItWorksPage() {
 
                   <div
                     className={
-                      step.side === "left" && step.imgSrc
-                        ? "sm:pl-12"
-                        : step.side === "right" && step.imgSrc
-                        ? "sm:pr-12"
+                      step.imgSrc
+                        ? "md:pt-0 md:pl-12 md:pr-12"
                         : "mt-2 sm:mt-4"
                     }
                   >
                     <h3
-                      className={`font-bold text-2xl sm:text-3xl ${step.titleColor} mb-2 sm:mb-4 pt-4 sm:pt-0`}
+                      className={`font-bold text-2xl sm:text-3xl ${step.titleColor} mb-2 sm:mb-4`}
                     >
                       {step.title}
                     </h3>

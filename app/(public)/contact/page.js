@@ -23,20 +23,68 @@ export default function ContactPage() {
   const [form, setForm] = useState({
     human: "",
     dog: "",
+    dogBreed: "",
     email: "",
     phone: "",
     subject: "Booking an Inquiry",
     message: "",
   });
+  const [vaccineFile, setVaccineFile] = useState(null);
+  const [vaccineFileName, setVaccineFileName] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
+  function handleFileChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setVaccineFile(null);
+      setVaccineFileName("");
+      return;
+    }
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Please upload a JPG, PNG, WEBP, or PDF file.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.size > 4 * 1024 * 1024) {
+      alert("File is too large. Maximum size is 4MB.");
+      e.target.value = "";
+      return;
+    }
+
+    setVaccineFile(file);
+    setVaccineFileName(file.name);
+  }
+
+  function readFileAsDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
+    setSubmitting(true);
+
     try {
+      let vaccineCertificate = "";
+      let vaccineCertificateName = "";
+
+      if (vaccineFile) {
+        vaccineCertificate = await readFileAsDataUrl(vaccineFile);
+        vaccineCertificateName = vaccineFile.name;
+      }
+
       const res = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -45,17 +93,24 @@ export default function ContactPage() {
           email: form.email,
           phone: form.phone,
           dogName: form.dog,
+          dogBreed: form.dogBreed,
           subject: form.subject,
           message: form.message,
+          vaccineCertificate,
+          vaccineCertificateName,
         }),
       });
       if (res.ok) {
         setSent(true);
+        setVaccineFile(null);
+        setVaccineFileName("");
       } else {
         alert("Oops! Something went wrong. Please try again.");
       }
     } catch (err) {
       alert("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -108,7 +163,20 @@ export default function ContactPage() {
                   ball.
                 </p>
                 <button
-                  onClick={() => setSent(false)}
+                  onClick={() => {
+                    setSent(false);
+                    setForm({
+                      human: "",
+                      dog: "",
+                      dogBreed: "",
+                      email: "",
+                      phone: "",
+                      subject: "Booking an Inquiry",
+                      message: "",
+                    });
+                    setVaccineFile(null);
+                    setVaccineFileName("");
+                  }}
                   className="bg-[#ffd93d] text-[#725e00] font-bold px-6 py-3 rounded-full border-2 border-[#1b1c1c] shadow-[0_4px_0_0_#1b1c1c] hover:translate-y-1 hover:shadow-none transition-all"
                 >
                   Send another woof
@@ -149,6 +217,55 @@ export default function ContactPage() {
                     required
                     className={inputClass}
                   />
+                </div>
+
+                {/* Dog breed */}
+                <div className="flex flex-col gap-2">
+                  <label className="font-bold text-sm text-[#1b1c1c]">
+                    Dog Breed
+                  </label>
+                  <input
+                    name="dogBreed"
+                    type="text"
+                    placeholder="Golden Retriever, Indie, Beagle..."
+                    value={form.dogBreed}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                {/* Vaccination certificate */}
+                <div className="flex flex-col gap-2">
+                  <label className="font-bold text-sm text-[#1b1c1c]">
+                    Vaccination Certificate
+                  </label>
+                  <label
+                    htmlFor="vaccineCertificate"
+                    className="w-full bg-white border-[3px] border-dashed border-[#1b1c1c] rounded-[2rem] px-6 py-5 text-lg text-[#4d4633] cursor-pointer hover:border-[#705d00] hover:bg-[#fffef8] transition-all duration-150 shadow-[0_4px_0_0_#eae7e7] flex items-center justify-center gap-3"
+                  >
+                    <span
+                      className="material-symbols-outlined text-[#705d00]"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      upload_file
+                    </span>
+                    {vaccineFileName || "Upload JPG, PNG, WEBP or PDF (max 4MB)"}
+                  </label>
+                  <input
+                    id="vaccineCertificate"
+                    name="vaccineCertificate"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,application/pdf"
+                    onChange={handleFileChange}
+                    className="sr-only"
+                  />
+                  {vaccineFileName && (
+                    <p className="text-sm text-[#705d00] font-medium flex items-center gap-1">
+                      <span className="material-symbols-outlined text-base">check_circle</span>
+                      {vaccineFileName} attached
+                    </p>
+                  )}
                 </div>
 
                 {/* Email */}
@@ -218,9 +335,10 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="mt-2 bg-[#ffd93d] text-[#725e00] font-bold text-2xl py-4 px-8 rounded-full border-[3px] border-[#1b1c1c] shadow-[0_6px_0_0_#1b1c1c] hover:translate-y-1 hover:shadow-[0_2px_0_0_#1b1c1c] active:translate-y-[6px] active:shadow-none transition-all duration-150 flex items-center justify-center gap-3"
+                  disabled={submitting}
+                  className="mt-2 bg-[#ffd93d] text-[#725e00] font-bold text-2xl py-4 px-8 rounded-full border-[3px] border-[#1b1c1c] shadow-[0_6px_0_0_#1b1c1c] hover:translate-y-1 hover:shadow-[0_2px_0_0_#1b1c1c] active:translate-y-[6px] active:shadow-none transition-all duration-150 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                   <span
                     className="material-symbols-outlined"
                     style={{ fontVariationSettings: "'FILL' 1" }}

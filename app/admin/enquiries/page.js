@@ -88,7 +88,21 @@ export default function AdminEnquiries() {
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-[var(--admin-text-primary)]">{enquiry.dogName || "N/A"}</div>
+                    {enquiry.dogBreed && (
+                      <div className="text-sm text-[var(--admin-text-muted)]">Breed: {enquiry.dogBreed}</div>
+                    )}
                     <div className="text-sm text-[var(--admin-text-muted)]">{enquiry.subject}</div>
+                    {enquiry.vaccineCertificate && (
+                      <a
+                        href={enquiry.vaccineCertificate}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download={enquiry.vaccineCertificateName || "vaccination-certificate"}
+                        className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-[var(--admin-accent)] hover:underline"
+                      >
+                        View vaccination certificate
+                      </a>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <p className="text-sm text-[var(--admin-text-secondary)] whitespace-pre-wrap">{enquiry.message}</p>

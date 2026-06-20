@@ -4,7 +4,7 @@ import { adminDb } from "@/lib/firebaseAdmin";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, email, phone, dogName, subject, message } = body;
+    const { name, email, phone, dogName, dogBreed, subject, message, vaccineCertificate, vaccineCertificateName } = body;
 
     if (!name || !email || !phone || !message) {
       return NextResponse.json(
@@ -19,8 +19,11 @@ export async function POST(req) {
       email,
       phone,
       dogName: dogName || "",
+      dogBreed: dogBreed || "",
       subject: subject || "",
       message,
+      vaccineCertificate: vaccineCertificate || "",
+      vaccineCertificateName: vaccineCertificateName || "",
       createdAt: now,
       updatedAt: now,
     });
