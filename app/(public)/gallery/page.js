@@ -3,9 +3,9 @@ import Link from "next/link";
 import FadeIn from "@/app/components/FadeIn";
 
 export const metadata = {
-  title: "Dogle - Wall of Wag Gallery",
+  title: "BM Pet care - Wall of Wag Gallery",
   description:
-    "Warning: Extreme cuteness ahead. Browse our gallery of happy dogs at Dogle.",
+    "Warning: Extreme cuteness ahead. Browse our gallery of happy dogs at BM Pet care.",
 };
 
 const galleryItems = [

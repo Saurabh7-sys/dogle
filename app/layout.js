@@ -1,9 +1,12 @@
 import "react-loading-skeleton/dist/skeleton.css";
 
 export const metadata = {
-  title: "Dogle - The Tail-Waggingest Stay Ever!",
+  title: "BM Pet care - Premium Pet Care Services",
   description:
     "Luxury dog boarding, daycare, grooming and pick & drop services. Where every day is a tail-wagging adventure for your best friend.",
+  icons: {
+    icon: "/LogoBm.png",
+  },
 };
 
 export default function RootLayout({ children }) {

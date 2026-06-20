@@ -4,8 +4,103 @@
   --font-sans: "Inter", sans-serif;
 }
 
+/* Base Variables (Dark Mode Default for Admin) */
+#admin-root {
+  --admin-bg: #09090b;
+  --admin-panel: rgba(24, 24, 27, 0.7);
+  --admin-panel-hover: rgba(39, 39, 42, 0.8);
+  --admin-border: rgba(63, 63, 70, 0.4);
+  --admin-text-primary: #f4f4f5;
+  --admin-text-secondary: #a1a1aa;
+  --admin-text-muted: #71717a;
+  
+  --admin-grad-from: rgba(99, 102, 241, 0.08);
+  --admin-grad-to: rgba(139, 92, 246, 0.05);
+
+  --admin-skeleton-base: #27272a;
+  --admin-skeleton-highlight: #3f3f46;
+
+  --admin-badge-success-bg: rgba(34, 197, 94, 0.15);
+  --admin-badge-success-text: #4ade80;
+  --admin-badge-warning-bg: rgba(234, 179, 8, 0.15); /* yellow-500/15 */
+  --admin-badge-warning-text: #facc15; /* yellow-400 */
+  --admin-badge-danger-bg: rgba(239, 68, 68, 0.15);
+  --admin-badge-danger-text: #f87171;
+  --admin-badge-neutral-bg: rgba(161, 161, 170, 0.15);
+  --admin-badge-neutral-text: #d4d4d8;
+
+  --admin-brand-whatsapp: #25d366;
+  --admin-brand-email: #2563eb;
+
+  --admin-accent: #6366f1;
+  --admin-accent-hover: #818cf8;
+  --admin-accent-light: rgba(99, 102, 241, 0.2);
+  --admin-accent-disabled: rgba(99, 102, 241, 0.5);
+  
+  --admin-action-success: #22c55e;
+  --admin-action-success-hover: #4ade80;
+  --admin-action-danger: #f87171;
+  --admin-action-danger-light: rgba(239, 68, 68, 0.1);
+}
+
+/* Light Mode Variables */
+#admin-root.light-mode {
+  --admin-bg: #f9fafb;
+  --admin-panel: rgba(255, 255, 255, 0.8);
+  --admin-panel-hover: rgba(243, 244, 246, 0.9);
+  --admin-border: rgba(229, 231, 235, 0.8);
+  --admin-text-primary: #111827;
+  --admin-text-secondary: #4b5563;
+  --admin-text-muted: #9ca3af;
+  
+  --admin-grad-from: rgba(99, 102, 241, 0.15);
+  --admin-grad-to: rgba(139, 92, 246, 0.1);
+
+  --admin-skeleton-base: #e5e7eb;
+  --admin-skeleton-highlight: #f3f4f6;
+
+  --admin-badge-success-bg: #dcfce7;
+  --admin-badge-success-text: #166534;
+  --admin-badge-warning-bg: #fef08a; /* yellow-200 */
+  --admin-badge-warning-text: #854d0e; /* yellow-800 */
+  --admin-badge-danger-bg: #fee2e2;
+  --admin-badge-danger-text: #991b1b;
+  --admin-badge-neutral-bg: #f3f4f6;
+  --admin-badge-neutral-text: #374151;
+
+  --admin-brand-whatsapp: #16a34a; /* Slightly darker green for light mode to ensure contrast against white text */
+  --admin-brand-email: #2563eb;
+
+  --admin-accent: #4f46e5;
+  --admin-accent-hover: #4338ca;
+  --admin-accent-light: #e0e7ff;
+  --admin-accent-disabled: #818cf8;
+
+  --admin-action-success: #16a34a;
+  --admin-action-success-hover: #14532d;
+  --admin-action-danger: #ef4444;
+  --admin-action-danger-light: #fef2f2;
+}
+
+#admin-root .react-loading-skeleton {
+  --base-color: var(--admin-skeleton-base);
+  --highlight-color: var(--admin-skeleton-highlight);
+}
+
 body {
-  background-color: #f9fafb; /* gray-50 */
-  color: #111827; /* gray-900 */
   font-family: var(--font-sans);
 }
+
+.glass-panel {
+  background: var(--admin-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--admin-border);
+}
+
+.admin-gradient-bg {
+  position: relative;
+  background-color: var(--admin-bg);
+  overflow: hidden;
+}
+

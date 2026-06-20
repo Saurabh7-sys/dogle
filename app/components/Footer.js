@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { useSiteStore } from "../store/useSiteStore";
 import { useHydration } from "../hooks/useHydration";
+import BrandLogo from "./BrandLogo";
+import { BRAND_NAME, CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from "@/lib/siteConfig";
+
+const TEL_URL = `tel:+91${CONTACT_PHONE}`;
 
 const footerLinks = [
   { label: "Safety Policy", href: "#" },
@@ -40,14 +44,9 @@ export default function Footer() {
         
         {/* Brand & Location */}
         <div className="flex flex-col gap-6 items-center md:items-start text-center md:text-left">
-          <Link
-            href="/"
-            className="text-4xl font-black text-white hover:rotate-3 hover:scale-105 transition-transform duration-200 inline-block"
-          >
-            {isHydrated ? logoText : "Dogle"}
-          </Link>
+          <BrandLogo href="/" size="lg" variant="dark" />
           <p className="text-green-100/90 font-medium max-w-xs leading-relaxed">
-            The tail-waggingest stay ever. Because your best friend deserves a vacation too.
+            Premium pet care you can trust. Because your best friend deserves a vacation too.
           </p>
           <div className="flex flex-col gap-2 mt-2">
             <h4 className="font-bold text-white text-lg">Find the Pack</h4>
@@ -60,7 +59,9 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2 mt-2 justify-center md:justify-start">
               <span className="material-symbols-outlined text-green-200" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
-              <p className="text-green-100/90">(555) 123-BARK</p>
+              <a href={TEL_URL} className="text-green-100/90 hover:text-white transition-colors">
+                {CONTACT_PHONE_DISPLAY}
+              </a>
             </div>
           </div>
         </div>
@@ -138,7 +139,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl relative z-10 gap-4 text-green-100/60 font-medium text-sm">
         <p>
-          © {currentYear} {isHydrated ? logoText : "Dogle"} - The Tail-Waggingest Stay Ever!
+          © {currentYear} {isHydrated ? logoText : BRAND_NAME} - Premium Pet Care
         </p>
         <p className="flex items-center gap-1">
           Made with <span className="material-symbols-outlined text-red-400 text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span> and lots of treats.

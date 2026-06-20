@@ -2,6 +2,7 @@ import "../public.css";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import BarkPlayer from "@/app/components/BarkPlayer";
+import { WHATSAPP_URL } from "@/lib/siteConfig";
 
 export default function PublicLayout({ children }) {
   return (
@@ -13,7 +14,7 @@ export default function PublicLayout({ children }) {
       
       {/* Floating WhatsApp FAB */}
       <a
-        href="https://wa.me/9930294912"
+        href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-[#25D366] rounded-full border-3 border-[#1b1c1c] flex items-center justify-center shadow-[0_6px_0_0_#1b1c1c] hover:translate-y-1 hover:shadow-[0_2px_0_0_#1b1c1c] transition-all duration-200 group"

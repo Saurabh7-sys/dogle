@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import FadeIn from "@/app/components/FadeIn";
+import { CONTACT_PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/siteConfig";
 
 const faqs = [
   {
@@ -174,7 +175,7 @@ export default function ContactPage() {
                   <input
                     name="phone"
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder={CONTACT_PHONE_DISPLAY}
                     value={form.phone}
                     onChange={handleChange}
                     required
@@ -250,8 +251,8 @@ export default function ContactPage() {
                 or sending us cute pics of your good boy.
               </p>
             </div>
-            <a href="https://wa.me/9930294912" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white font-bold text-2xl py-4 px-8 rounded-full border-[3px] border-[#1b1c1c] shadow-[0_6px_0_0_#1b1c1c] hover:translate-y-1 hover:shadow-[0_2px_0_0_#1b1c1c] active:translate-y-[6px] active:shadow-none transition-all duration-150 flex items-center justify-center gap-3">
-              WhatsApp Us
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white font-bold text-2xl py-4 px-8 rounded-full border-[3px] border-[#1b1c1c] shadow-[0_6px_0_0_#1b1c1c] hover:translate-y-1 hover:shadow-[0_2px_0_0_#1b1c1c] active:translate-y-[6px] active:shadow-none transition-all duration-150 flex items-center justify-center gap-3">
+              WhatsApp Us ({CONTACT_PHONE_DISPLAY})
             </a>
           </div>
 

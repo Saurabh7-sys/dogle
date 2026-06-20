@@ -49,12 +49,12 @@ export default function AdminBookings() {
 
   if (loading) {
     return (
-      <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+      <main className="w-[90%] max-w-none mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Skeleton width={300} height={32} />
           <Skeleton width={400} height={20} className="mt-1" />
         </div>
-        <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden p-4">
+        <div className="glass-panel sm:rounded-xl overflow-hidden p-4">
           <Skeleton count={5} height={65} className="mb-2" />
         </div>
       </main>
@@ -62,51 +62,51 @@ export default function AdminBookings() {
   }
 
   return (
-    <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <main className="w-[90%] max-w-none mx-auto py-10 px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Manage Bookings</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-[var(--admin-text-primary)]">Manage Bookings</h1>
+        <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
           View all incoming reservation requests.
         </p>
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden">
+      <div className="glass-panel sm:rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-[var(--admin-border)]">
+            <thead className="bg-[var(--admin-panel-hover)]">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Dates & Service</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Owner / Phone</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Dog Details</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Dates & Service</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Owner / Phone</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Dog Details</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-right text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
+            <tbody className="divide-y divide-[var(--admin-border)] glass-panel">
               {bookings.map((booking) => (
-                <tr key={booking.id} className="hover:bg-gray-50 transition-colors">
+                <tr key={booking.id} className="hover:bg-[var(--admin-panel-hover)] transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-bold text-indigo-600 capitalize">{booking.serviceType}</div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm font-bold text-[var(--admin-accent)] capitalize">{booking.serviceType}</div>
+                    <div className="text-sm text-[var(--admin-text-muted)]">
                       {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{booking.ownerName}</div>
-                    <div className="text-sm text-gray-500">{booking.phone}</div>
+                    <div className="text-sm font-medium text-[var(--admin-text-primary)]">{booking.ownerName}</div>
+                    <div className="text-sm text-[var(--admin-text-muted)]">{booking.phone}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{booking.dogName} <span className="font-normal text-gray-500">({booking.breed})</span></div>
+                    <div className="text-sm font-medium text-[var(--admin-text-primary)]">{booking.dogName} <span className="font-normal text-[var(--admin-text-muted)]">({booking.breed})</span></div>
                     {booking.specialNeeds && (
-                      <div className="text-xs text-red-500 max-w-[200px] truncate" title={booking.specialNeeds}>
+                      <div className="text-xs text-[var(--admin-action-danger)] max-w-[200px] truncate" title={booking.specialNeeds}>
                         Needs: {booking.specialNeeds}
                       </div>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${
-                      booking.status === "confirmed" ? "bg-green-100 text-green-800" : 
-                      booking.status === "pending" ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 text-gray-800"
+                      booking.status === "confirmed" ? "bg-[var(--admin-badge-success-bg)] text-[var(--admin-badge-success-text)]" : 
+                      booking.status === "pending" ? "bg-[var(--admin-badge-warning-bg)] text-[var(--admin-badge-warning-text)]" : "bg-[var(--admin-badge-neutral-bg)] text-[var(--admin-badge-neutral-text)]"
                     }`}>
                       {booking.status || "pending"}
                     </span>
@@ -114,7 +114,7 @@ export default function AdminBookings() {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button 
                       onClick={() => handleUpdateStatus(booking.id, booking.status || "pending")}
-                      className="text-indigo-600 hover:text-indigo-900"
+                      className="text-[var(--admin-accent)] hover:text-[var(--admin-accent-hover)]"
                     >
                       Update Status
                     </button>
@@ -123,7 +123,7 @@ export default function AdminBookings() {
               ))}
               {bookings.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="px-6 py-8 text-center text-sm text-gray-500">
+                  <td colSpan="5" className="px-6 py-8 text-center text-sm text-[var(--admin-text-muted)]">
                     No bookings found.
                   </td>
                 </tr>

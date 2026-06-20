@@ -44,12 +44,12 @@ export default function AdminEnquiries() {
 
   if (loading) {
     return (
-      <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+      <main className="w-[90%] max-w-none mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Skeleton width={300} height={32} />
           <Skeleton width={400} height={20} className="mt-1" />
         </div>
-        <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden p-4">
+        <div className="glass-panel sm:rounded-xl overflow-hidden p-4">
           <Skeleton count={5} height={65} className="mb-2" />
         </div>
       </main>
@@ -57,41 +57,41 @@ export default function AdminEnquiries() {
   }
 
   return (
-    <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <main className="w-[90%] max-w-none mx-auto py-10 px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Contact Enquiries</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-[var(--admin-text-primary)]">Contact Enquiries</h1>
+        <p className="mt-1 text-sm text-[var(--admin-text-muted)]">
           Messages sent from the public website contact form.
         </p>
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden">
+      <div className="glass-panel sm:rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-[var(--admin-border)]">
+            <thead className="bg-[var(--admin-panel-hover)]">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-1/4">Contact Details</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-1/4">Dog Info</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-1/4">Message</th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Reply</th>
-                <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider w-1/4">Contact Details</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider w-1/4">Dog Info</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider w-1/4">Message</th>
+                <th className="px-6 py-4 text-center text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Reply</th>
+                <th className="px-6 py-4 text-right text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
+            <tbody className="divide-y divide-[var(--admin-border)] glass-panel">
               {enquiries.map((enquiry) => (
-                <tr key={enquiry.id} className="hover:bg-gray-50 transition-colors">
+                <tr key={enquiry.id} className="hover:bg-[var(--admin-panel-hover)] transition-colors">
                   <td className="px-6 py-4">
-                    <div className="text-sm font-bold text-gray-900">{enquiry.name}</div>
-                    <div className="text-sm text-gray-500">{enquiry.email}</div>
-                    {enquiry.phone && <div className="text-sm text-gray-500">{enquiry.phone}</div>}
-                    <div className="text-xs text-gray-400 mt-1">{new Date(enquiry.createdAt).toLocaleString()}</div>
+                    <div className="text-sm font-bold text-[var(--admin-text-primary)]">{enquiry.name}</div>
+                    <div className="text-sm text-[var(--admin-text-muted)]">{enquiry.email}</div>
+                    {enquiry.phone && <div className="text-sm text-[var(--admin-text-muted)]">{enquiry.phone}</div>}
+                    <div className="text-xs text-[var(--admin-text-muted)] mt-1">{new Date(enquiry.createdAt).toLocaleString()}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{enquiry.dogName || "N/A"}</div>
-                    <div className="text-sm text-gray-500">{enquiry.subject}</div>
+                    <div className="text-sm font-medium text-[var(--admin-text-primary)]">{enquiry.dogName || "N/A"}</div>
+                    <div className="text-sm text-[var(--admin-text-muted)]">{enquiry.subject}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-sm text-gray-700 whitespace-pre-wrap">{enquiry.message}</p>
+                    <p className="text-sm text-[var(--admin-text-secondary)] whitespace-pre-wrap">{enquiry.message}</p>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-col gap-2 items-center">
@@ -99,13 +99,13 @@ export default function AdminEnquiries() {
                         href={`https://wa.me/${(enquiry.phone || "").replace(/\D/g, '')}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-full text-center px-3 py-1 bg-brand-whatsapp text-white text-xs font-bold rounded-full hover:opacity-80 transition-opacity"
+                        className="w-full text-center px-3 py-1 bg-[var(--admin-brand-whatsapp)] text-white text-xs font-bold rounded-full hover:opacity-80 transition-opacity"
                       >
                         WhatsApp
                       </a>
                       <a 
                         href={`mailto:${enquiry.email}`}
-                        className="w-full text-center px-3 py-1 bg-brand-blue-600 text-white text-xs font-bold rounded-full hover:opacity-80 transition-opacity"
+                        className="w-full text-center px-3 py-1 bg-[var(--admin-brand-email)] text-white text-xs font-bold rounded-full hover:opacity-80 transition-opacity"
                       >
                         Email
                       </a>
@@ -114,7 +114,7 @@ export default function AdminEnquiries() {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button 
                       onClick={() => handleMarkAsRead(enquiry.id)}
-                      className="text-green-600 hover:text-green-900 font-bold"
+                      className="text-[var(--admin-action-success)] hover:text-[var(--admin-action-success-hover)] font-bold"
                     >
                       Mark as Replied
                     </button>
@@ -123,7 +123,7 @@ export default function AdminEnquiries() {
               ))}
               {enquiries.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-6 py-8 text-center text-sm text-gray-500">
+                  <td colSpan="4" className="px-6 py-8 text-center text-sm text-[var(--admin-text-muted)]">
                     No new enquiries.
                   </td>
                 </tr>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import FadeIn from "@/app/components/FadeIn";
 
 export const metadata = {
-  title: "Dogle - How It Works (Dog POV)",
+  title: "BM Pet care - How It Works (Dog POV)",
   description:
-    "From Wag to Nap — see the full Dogle experience from your dog's perspective.",
+    "From Wag to Nap — see the full BM Pet care experience from your dog's perspective.",
 };
 
 const steps = [

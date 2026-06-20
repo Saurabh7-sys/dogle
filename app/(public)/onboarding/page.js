@@ -143,7 +143,7 @@ export default function OnboardingPage() {
           >
             {saving ? "Saving..." : "Complete Profile"}
           </button>
-          {!vaccinated && <p className="text-xs text-center text-zinc-500 font-medium mt-2">Dogs must be vaccinated to stay at Dogle.</p>}
+          {!vaccinated && <p className="text-xs text-center text-zinc-500 font-medium mt-2">Dogs must be vaccinated to stay at BM Pet care.</p>}
         </form>
       </div>
     </div>

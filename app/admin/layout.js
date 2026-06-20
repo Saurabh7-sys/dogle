@@ -4,17 +4,17 @@ import NotificationToast from "../components/NotificationToast";
 import ConfirmDialog from "../components/ConfirmDialog";
 
 export const metadata = {
-  title: "Dogle Admin Dashboard",
-  description: "Manage Dogle website content",
+  title: "BM Pet care Admin Dashboard",
+  description: "Manage BM Pet care website content",
 };
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col font-sans">
+    <div id="admin-root" className="min-h-screen flex flex-col font-sans admin-gradient-bg text-[var(--admin-text-primary)]">
       <AdminNavbar />
       <NotificationToast />
       <ConfirmDialog />
-      <div className="flex-grow">
+      <div className="flex-grow relative z-10">
         {children}
       </div>
     </div>
