@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next-sitemap",
     "start": "next start",
     "lint": "eslint"
   },
@@ -17,6 +17,7 @@
     "jose": "^6.2.2",
     "jsonwebtoken": "^9.0.3",
     "next": "16.2.4",
+    "next-sitemap": "^4.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-loading-skeleton": "^3.5.0",
