@@ -1,8 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FadeIn from "@/app/components/FadeIn";
 import { CONTACT_PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/siteConfig";
+import { useAuthStore } from "@/app/store/useAuthStore";
+
+function truncateFilename(filename, maxLength = 20) {
+  if (!filename || filename.length <= maxLength) return filename;
+  const extIndex = filename.lastIndexOf(".");
+  if (extIndex === -1) {
+    return filename.slice(0, maxLength - 3) + "...";
+  }
+  const name = filename.slice(0, extIndex);
+  const ext = filename.slice(extIndex);
+  const allowedLength = maxLength - ext.length - 3;
+  if (allowedLength <= 0) {
+    return filename.slice(0, maxLength - 3) + "...";
+  }
+  return name.slice(0, allowedLength) + "..." + ext;
+}
 
 const faqs = [
   {
@@ -20,6 +36,7 @@ const faqs = [
 ];
 
 export default function ContactPage() {
+  const { user, profile } = useAuthStore();
   const [form, setForm] = useState({
     human: "",
     dog: "",
@@ -33,6 +50,19 @@ export default function ContactPage() {
   const [vaccineFileName, setVaccineFileName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+
+  useEffect(() => {
+    if (profile) {
+      setForm((prev) => ({
+        ...prev,
+        human: prev.human || profile.name || user?.displayName || "",
+        dog: prev.dog || profile.dogName || "",
+        dogBreed: prev.dogBreed || profile.dogBreed || "",
+        email: prev.email || profile.email || user?.email || "",
+        phone: prev.phone || profile.phone || "",
+      }));
+    }
+  }, [profile, user]);
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -250,7 +280,7 @@ export default function ContactPage() {
                     >
                       upload_file
                     </span>
-                    {vaccineFileName || "Upload JPG, PNG, WEBP or PDF (max 4MB)"}
+                    {vaccineFileName ? truncateFilename(vaccineFileName) : "Upload JPG, PNG, WEBP or PDF (max 4MB)"}
                   </label>
                   <input
                     id="vaccineCertificate"
@@ -263,7 +293,7 @@ export default function ContactPage() {
                   {vaccineFileName && (
                     <p className="text-sm text-[#705d00] font-medium flex items-center gap-1">
                       <span className="material-symbols-outlined text-base">check_circle</span>
-                      {vaccineFileName} attached
+                      {truncateFilename(vaccineFileName)} attached
                     </p>
                   )}
                 </div>

@@ -93,10 +93,11 @@ export default function AdminUsers() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      user.vaccinated === "yes" ? "bg-[var(--admin-badge-success-bg)] text-[var(--admin-badge-success-text)]" : 
-                      user.vaccinated === "no" ? "bg-[var(--admin-badge-danger-bg)] text-[var(--admin-badge-danger-text)]" : "bg-[var(--admin-badge-neutral-bg)] text-[var(--admin-badge-neutral-text)]"
+                      (user.vaccinated === true || user.vaccinated === "yes" || user.vaccinated === "true") ? "bg-[var(--admin-badge-success-bg)] text-[var(--admin-badge-success-text)]" : 
+                      (user.vaccinated === false || user.vaccinated === "no" || user.vaccinated === "false") ? "bg-[var(--admin-badge-danger-bg)] text-[var(--admin-badge-danger-text)]" : "bg-[var(--admin-badge-neutral-bg)] text-[var(--admin-badge-neutral-text)]"
                     }`}>
-                      {user.vaccinated === "yes" ? "Yes" : user.vaccinated === "no" ? "No" : "Unknown"}
+                      {(user.vaccinated === true || user.vaccinated === "yes" || user.vaccinated === "true") ? "Yes" : 
+                       (user.vaccinated === false || user.vaccinated === "no" || user.vaccinated === "false") ? "No" : "Unknown"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-[var(--admin-text-muted)]">

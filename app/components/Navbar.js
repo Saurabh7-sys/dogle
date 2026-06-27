@@ -20,6 +20,7 @@ export default function Navbar() {
 
   const { user, profile, loading, setAuthModalOpen, initializeAuth, logout } = useAuthStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = initializeAuth();
@@ -40,9 +41,61 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!loading && user && profile && !profile.dogName) {
+      const now = Date.now();
+      const lastShown = localStorage.getItem("last_profile_reminder_time");
+      if (!lastShown || now - parseInt(lastShown, 10) > 24 * 60 * 60 * 1000) {
+        setIsReminderModalOpen(true);
+        localStorage.setItem("last_profile_reminder_time", now.toString());
+      }
+    }
+  }, [loading, user, profile]);
+
   return (
     <>
       <AuthModal />
+      
+      {/* Profile Reminder Modal */}
+      {isReminderModalOpen && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl relative border-4 border-zinc-900 text-center">
+            <button 
+              onClick={() => setIsReminderModalOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 border-2 border-zinc-900 transition-colors"
+            >
+              <span className="material-symbols-outlined text-sm font-bold">close</span>
+            </button>
+            
+            <div className="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-zinc-900">
+              <span className="material-symbols-outlined text-3xl text-yellow-600">pets</span>
+            </div>
+            
+            <h2 className="text-2xl font-black text-zinc-900 tracking-tight mb-2">
+              Complete Profile! 🐾
+            </h2>
+            <p className="text-sm font-semibold text-zinc-600 mb-6 px-2 leading-relaxed">
+              Tell us about your dog to start booking stays at BM Pet Care. It only takes a minute!
+            </p>
+            
+            <Link 
+              href="/onboarding" 
+              onClick={() => setIsReminderModalOpen(false)}
+              className="block w-full text-center bg-[#ffd93d] text-[#725e00] font-black text-lg py-3 rounded-xl border-2 border-zinc-900 shadow-[0_4px_0_0_rgba(27,28,28,1)] hover:translate-y-1 hover:shadow-none transition-all"
+            >
+              Let's Go!
+            </Link>
+            
+            <button 
+              onClick={() => setIsReminderModalOpen(false)}
+              className="mt-4 text-xs font-bold text-zinc-400 hover:text-zinc-600 transition-colors"
+            >
+              Maybe Later
+            </button>
+          </div>
+        </div>
+      )}
+
       <header className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 py-2 sm:py-3">
         <nav className="flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-5 lg:px-6 py-2 sm:py-3 max-w-7xl mx-auto rounded-full border-2 border-zinc-900 shadow-[0_4px_0_0_rgba(255,217,61,1)] sm:shadow-[0_6px_0_0_rgba(255,217,61,1)] bg-white/90 backdrop-blur-md">
           <BrandLogo href="/" size="md" variant="light" compact className="shrink-0" />
@@ -76,11 +129,8 @@ export default function Navbar() {
             </Link>
 
             {!loading && user ? (
-              <div className="flex items-center bg-yellow-100 p-0.5 sm:pl-2 sm:pr-1 sm:py-1 rounded-full border-2 border-zinc-900 cursor-pointer group relative">
-                <span className="font-bold text-xs text-yellow-800 hidden md:block whitespace-nowrap max-w-[88px] truncate">
-                  {profile?.dogName || "Complete Profile!"}
-                </span>
-                <div className="w-8 h-8 rounded-full border border-zinc-900 overflow-hidden bg-white flex items-center justify-center shrink-0">
+              <div className="inline-flex items-center justify-center p-[3px] rounded-full border-2 border-zinc-900 cursor-pointer group relative bg-yellow-100 shrink-0">
+                <div className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-zinc-900 overflow-hidden bg-white shrink-0">
                   {profile?.photoURL ? (
                     <img src={profile.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { auth } from "@/lib/firebaseClient";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -15,6 +15,15 @@ export default function AuthModal() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (isAuthModalOpen) {
+      if (typeof window !== "undefined") {
+        const returning = localStorage.getItem("dogle_returning_user") === "true";
+        setIsLogin(returning);
+      }
+    }
+  }, [isAuthModalOpen]);
+
   if (!isAuthModalOpen) return null;
 
   const handleGoogle = async () => {
@@ -28,6 +37,9 @@ export default function AuthModal() {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
+      if (typeof window !== "undefined") {
+        localStorage.setItem("dogle_returning_user", "true");
+      }
       setAuthModalOpen(false);
     } catch (err) {
       setError(err.message);
@@ -44,9 +56,15 @@ export default function AuthModal() {
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("dogle_returning_user", "true");
+        }
         setAuthModalOpen(false);
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("dogle_returning_user", "true");
+        }
         setAuthModalOpen(false);
       }
     } catch (err) {
