@@ -43,6 +43,14 @@ const cards = [
     icon: "mail",
     color: "from-rose-500 to-pink-500",
     shadow: "shadow-rose-500/20"
+  },
+  {
+    title: "Gallery",
+    description: "Photos",
+    href: "/admin/gallery",
+    icon: "photo_library",
+    color: "from-amber-500 to-orange-500",
+    shadow: "shadow-amber-500/20"
   }
 ];
 

@@ -85,7 +85,7 @@ export default function AuthModal() {
         </button>
         
         <h2 className="text-3xl font-black text-center text-zinc-900 tracking-tight mb-2">
-          {isLogin ? "Welcome Back!" : "Join the Pack!"}
+          {isLogin ? "Welcome Back!" : "Welcome on board"}
         </h2>
         <p className="text-center text-zinc-600 mb-8 font-medium">
           {isLogin ? "Sign in to manage your dog's bookings." : "Create an account to start boarding."}
