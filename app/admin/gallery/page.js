@@ -233,16 +233,16 @@ export default function AdminGalleryPage() {
                   className="object-cover"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 />
-                {/* Delete overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                {/* Delete button (Always visible on mobile, hover on desktop) */}
+                <div className="absolute top-2 right-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete(img.id);
                     }}
-                    className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors shadow-lg"
+                    className="p-2 bg-white/90 hover:bg-red-500 text-red-500 hover:text-white rounded-xl backdrop-blur-sm transition-colors shadow-lg border border-white/20"
                   >
-                    <span className="material-symbols-outlined">delete</span>
+                    <span className="material-symbols-outlined text-[20px] leading-none block">delete</span>
                   </button>
                 </div>
               </motion.div>
